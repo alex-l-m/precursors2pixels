@@ -1,3 +1,5 @@
+import sys
+from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 from rdkit.Chem import AllChem
@@ -53,8 +55,13 @@ if __name__ == "__main__":
     halides_file_name = 'aromatic_halides_with_id.csv'
     acids_file_name = 'aromatic_boronic_acids_with_id.csv'
 
-    halide_df = pd.read_csv('input_data/' + halides_file_name)
-    acid_df = pd.read_csv('input_data/' + acids_file_name)
+    args = sys.argv[1:]
+    assert len(args) < 2
+    inpath_str = 'input_data' if len(args) == 0 else args[0]
+    inpath = Path(inpath_str)
+    halide_df = pd.read_csv(inpath / halides_file_name)
+    acid_df = pd.read_csv(inpath / acids_file_name)
+    print(f'Read {len(halide_df)} halides and {len(acid_df)} acids from {inpath_str}')
 
     result_data = []  # List to store the data
 
