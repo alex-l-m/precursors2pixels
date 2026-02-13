@@ -19,6 +19,8 @@ combinatorial_ligands <- read_csv('output_data/combinatorial_ligands.csv', col_t
 sorted_combined_ligands <- bind_rows(combinatorial_carbene_ligands, combinatorial_ligands) |>
     # Sort from smallest ligands to largest, taking the length of the smiles
     # string as a proxy for the size of the ligand
-    arrange(str_length(ligand_SMILES))
+    arrange(str_length(ligand_SMILES)) |>
+    # Deduplicate
+    distinct(ligand_SMILES, .keep_all = TRUE)
 
 write_csv(sorted_combined_ligands, 'output_data/combined_sorted_ligands.csv.gz')
