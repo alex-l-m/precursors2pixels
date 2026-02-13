@@ -24,8 +24,9 @@ def n_arylation(imidazole_smiles, halide_smiles):
 
     # Define n-arylation coupling reaction using reaction SMARTS
     # The carbene atom has to be non-aromatic. Otherwise you get a kekulize error.
-    # Furthermore, it needs to be marked as having no Hs, or it will have an implicit H
-    n_arylation_rxn_smarts = '[cH:1][c:2](-[I,Br,Cl,F:3])[c:4].[nX2:5][cH1:6][n:7]>>[c:1](-*):[cH0:2](-[N:5]-[CH0:6](->*)-[N:7]):[c:4].[I,Br,Cl,F:3]'
+    # Furthermore, it needs to be marked as having no Hs, or it will have an implicit H.
+    #
+    n_arylation_rxn_smarts = '[cH:1][c:2](-[I,Br,Cl,F:3])[c:4].[nX2:5][cH1:6][n:7]>>[c:1](-*):[cH0:2](-[N:5]-[CH0:6](=*)-[N:7]):[c:4].[I,Br,Cl,F:3]'
     n_arylation_rxn = AllChem.ReactionFromSmarts(n_arylation_rxn_smarts)
 
     # Perform the reaction
